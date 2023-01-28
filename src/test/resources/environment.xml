@@ -1,0 +1,26 @@
+<environment>
+    <parameter>
+        <key>Chrome Browser</key>
+        <value>106.0.5249.119</value>
+    </parameter>
+    <parameter>
+        <key>Firefox Browser</key>
+        <value>106.0</value>
+    </parameter>
+    <parameter>
+        <key>Microsoft Edge</key>
+        <value>106.0.1370.47</value>
+    </parameter>
+    <parameter>
+        <key>System Under Test</key>
+        <value>https://www.themoviedb.org/</value>
+    </parameter>
+    <parameter>
+        <key>Operative System</key>
+        <value>Windows 10</value>
+    </parameter>
+    <parameter>
+        <key>Java Version</key>
+        <value>11.0.16</value>
+    </parameter>
+</environment>
