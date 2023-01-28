@@ -1,23 +1,19 @@
 <environment>
     <parameter>
         <key>Chrome Browser</key>
-        <value>106.0.5249.119</value>
+        <value>WebDriverManager</value>
     </parameter>
     <parameter>
         <key>Firefox Browser</key>
-        <value>106.0</value>
+        <value>WebDriverManager</value>
     </parameter>
     <parameter>
-        <key>Microsoft Edge</key>
-        <value>106.0.1370.47</value>
+        <key>Microsoft Edge Browser</key>
+        <value>WebDriverManager</value>
     </parameter>
     <parameter>
-        <key>System Under Test</key>
-        <value>https://www.themoviedb.org/</value>
-    </parameter>
-    <parameter>
-        <key>Operative System</key>
-        <value>Windows 10</value>
+        <key>System Under Test (SUT)</key>
+        <value>https://www.saucedemo.com/</value>
     </parameter>
     <parameter>
         <key>Java Version</key>

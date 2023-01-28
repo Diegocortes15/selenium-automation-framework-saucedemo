@@ -16,4 +16,11 @@
         </classes>
     </test>
 
+    <test name="TestStory: PW_0001 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0001"/>
+        </classes>
+    </test>
+
 </suite>
