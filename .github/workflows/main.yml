@@ -15,5 +15,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+      - name: Install Chrome
+        run: |
+          VERSION_STRING="109.0.5414.120"
+          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}_amd64.deb"
+          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}_amd64.deb"
+      - uses: browser-actions/setup-edge@v1
+      - name: Print Edge version
+        run: (Get-Item (Get-Command msedge).Source).VersionInfo.ProductVersion
       - name: Build with Maven
         run: mvn -B package --file pom.xml
