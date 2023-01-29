@@ -14,6 +14,6 @@ public class ProductsPage extends BasePage {
     }
 
     public void verifyCurrentPage(String expectedTitlePage) {
-        verifyText(pageTitle, expectedTitlePage);
+        seleniumFactory.verifyText(pageTitle, expectedTitlePage);
     }
 }

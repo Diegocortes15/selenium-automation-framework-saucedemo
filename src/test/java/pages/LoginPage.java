@@ -27,30 +27,34 @@ public class LoginPage extends BasePage {
     }
 
     public void enterUsername(String username) {
-        sendKeys(inputUser, username);
+        seleniumFactory.sendKeys(inputUser, username);
     }
 
     public void enterPassword(String password) {
-        sendKeys(inputPassword, password);
+        seleniumFactory.sendKeys(inputPassword, password);
     }
 
     public void verifyUsername(String expectedUsername) {
-        verifyValue(inputUser, expectedUsername);
+        seleniumFactory.verifyValue(inputUser, expectedUsername);
     }
 
     public void verifyPassword(String expectedPassword) {
-        verifyValue(inputPassword, expectedPassword);
+        seleniumFactory.verifyValue(inputPassword, expectedPassword);
     }
 
     public ProductsPage clickButtonSubmit() {
-        click(buttonSubmit);
+        seleniumFactory.click(buttonSubmit);
         return new ProductsPage(driver);
     }
 
     public void login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
-        embedFullPageScreenshot("Login - Screenshot");
+        seleniumFactory.embedFullPageScreenshot("Login - Screenshot");
         clickButtonSubmit();
+    }
+
+    public void verifyValidationMessage(String validationMessage) {
+        seleniumFactory.verifyText(errorMessage, validationMessage);
     }
 }

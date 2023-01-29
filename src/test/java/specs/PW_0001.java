@@ -7,20 +7,22 @@ import pages.LoginPage;
 import pages.ProductsPage;
 import utils.ReadJsonData;
 
+@Feature("Login")
 public class PW_0001 extends BaseTest {
 
-    protected final String storyParent = "pw-0001";
+    private final String storyParent = "pw-0001";
 
-    protected final ReadJsonData readDataTestCase_1 = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0003.json");
-    protected final JSONObject dataTestCase_1 = readDataTestCase_1.getJsonObject();
     @Test
-    @Feature("Login")
-    @Story("Verify 'standard_user' can login")
+    @Story(storyParent)
     @Description("Validate the 'standard_user' user navigates to the products page when logged in")
     @Severity(SeverityLevel.BLOCKER)
     public void pw_0003() {
-        JSONObject dataLoginPage = (JSONObject) dataTestCase_1.get("loginPage");
-        JSONObject dataProductsPage = (JSONObject) dataTestCase_1.get("productsPage");
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0004.json");
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+        JSONObject dataProductsPage = (JSONObject) dataTestCase.get("productsPage");
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         loginPage.enterUsername((String) dataLoginPage.get("username"));
@@ -31,16 +33,17 @@ public class PW_0001 extends BaseTest {
         productsPage.verifyCurrentPage((String) dataProductsPage.get("titlePage"));
     }
 
-    protected final ReadJsonData readDataTestCase_2 = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0004.json");
-    protected final JSONObject dataTestCase_2 = readDataTestCase_2.getJsonObject();
     @Test
-    @Feature("Login")
-    @Story("Verify 'problem_user' can login")
+    @Story(storyParent)
     @Description("Validate the 'problem_user' user navigates to the products page when logged in")
     @Severity(SeverityLevel.BLOCKER)
     public void pw_0004() {
-        JSONObject dataLoginPage = (JSONObject) dataTestCase_2.get("loginPage");
-        JSONObject dataProductsPage = (JSONObject) dataTestCase_2.get("productsPage");
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0004.json");
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+        JSONObject dataProductsPage = (JSONObject) dataTestCase.get("productsPage");
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         loginPage.enterUsername((String) dataLoginPage.get("username"));
@@ -51,16 +54,17 @@ public class PW_0001 extends BaseTest {
         productsPage.verifyCurrentPage((String) dataProductsPage.get("titlePage"));
     }
 
-    protected final ReadJsonData readDataTestCase_3 = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0005.json");
-    protected final JSONObject dataTestCase_3 = readDataTestCase_3.getJsonObject();
     @Test
-    @Feature("Login")
-    @Story("Verify 'performance_glitch_user' can login")
+    @Story(storyParent)
     @Description("Validate 'performance_glitch_user' the user navigates to the products page when logged in")
     @Severity(SeverityLevel.BLOCKER)
     public void pw_0005() {
-        JSONObject dataLoginPage = (JSONObject) dataTestCase_3.get("loginPage");
-        JSONObject dataProductsPage = (JSONObject) dataTestCase_3.get("productsPage");
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0005.json");
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+        JSONObject dataProductsPage = (JSONObject) dataTestCase.get("productsPage");
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         loginPage.enterUsername((String) dataLoginPage.get("username"));
@@ -70,4 +74,73 @@ public class PW_0001 extends BaseTest {
         ProductsPage productsPage = loginPage.clickButtonSubmit();
         productsPage.verifyCurrentPage((String) dataProductsPage.get("titlePage"));
     }
+
+    @Test
+    @Story(storyParent)
+    @Description("Validate the 'locked_out_user' cannot login")
+    @Severity(SeverityLevel.NORMAL)
+    public void pw_0006() {
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0006.json");
+
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.goTo();
+        loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
+        loginPage.clickButtonSubmit();
+        loginPage.verifyValidationMessage((String) dataLoginPage.get("validationMessage"));
+    }
+
+    @Test
+    @Story(storyParent)
+    @Description("Validate the 'locked_out_user' cannot login")
+    @Severity(SeverityLevel.NORMAL)
+    public void pw_0007() {
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0007.json");
+
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.goTo();
+        loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
+        loginPage.clickButtonSubmit();
+        loginPage.verifyValidationMessage((String) dataLoginPage.get("validationMessage"));
+    }
+
+    @Test
+    @Story(storyParent)
+    @Description("Validate the 'locked_out_user' cannot login")
+    @Severity(SeverityLevel.NORMAL)
+    public void pw_0008() {
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0008.json");
+
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.goTo();
+        loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
+        loginPage.clickButtonSubmit();
+        loginPage.verifyValidationMessage((String) dataLoginPage.get("validationMessage"));
+    }
+
+    @Test
+    @Story(storyParent)
+    @Description("Validate the 'locked_out_user' cannot login")
+    @Severity(SeverityLevel.NORMAL)
+    public void pw_0009() {
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0009.json");
+
+        JSONObject dataTestCase = readDataTestCase.getJsonObject();
+        JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.goTo();
+        loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
+        loginPage.clickButtonSubmit();
+        loginPage.verifyValidationMessage((String) dataLoginPage.get("validationMessage"));
+    }
+
 }
