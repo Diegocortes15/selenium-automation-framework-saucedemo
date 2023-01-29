@@ -1,4 +1,4 @@
-package utils;
+package core;
 
 import core.LoggerLoad;
 import io.qameta.allure.Allure;
