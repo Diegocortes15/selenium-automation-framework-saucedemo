@@ -1,6 +1,15 @@
 # Selenium Automation Framework Saucedemo
- 
-## Prerequisites
+
+## Dependencies used
+
+- Selenium
+- WebDriverManager
+- TestNG
+- Log4J
+- Allure
+- JsonSimple
+
+## Prerequisites to run the project
 
 - [JDK 11](https://www.oracle.com/co/java/technologies/javase/jdk11-archive-downloads.html) (Environment variable)
 - [Maven](https://maven.apache.org/download.cgi) (Environment variable)
