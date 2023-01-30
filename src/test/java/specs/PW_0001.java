@@ -1,11 +1,11 @@
 package specs;
 
+import core.ReadJsonData;
 import io.qameta.allure.*;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
-import core.ReadJsonData;
 
 @Feature("Login")
 public class PW_0001 extends BaseTest {

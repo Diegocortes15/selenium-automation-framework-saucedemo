@@ -58,6 +58,7 @@ public class SeleniumFactory {
 
     @Step("⏩ \"{0}\" is selected with option \"{1}\"")
     public void selectByVisibleText(WebElement webElement, String strValue) {
+        waitElementUntil(webElement, "CLICKABLE");
         Select dropdown = new Select(webElement);
         dropdown.selectByVisibleText(strValue);
         LoggerLoad.info(webElement + " is selected with option " + strValue);
@@ -112,5 +113,18 @@ public class SeleniumFactory {
             LoggerLoad.info("FAILED: URL page is NOT as Expected = " + expectURL + " ; Actual = " + actualURL);
         }
         Assert.assertEquals(actualURL, expectURL);
+    }
+
+    public void verifyCompareValues(String actualValue, String expectedValue) {
+        if (Objects.equals(actualValue, expectedValue)) {
+            Allure.addAttachment("✅ Value is displayed as Expected = " + expectedValue + " ; Actual = " + actualValue, "✅ Value is displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+            this.embedFullPageScreenshot("✅ Value is displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+            LoggerLoad.info("PASSED: Value is displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+        } else {
+            Allure.addAttachment("💥 Value is NOT displayed as Expected = " + expectedValue + " ; Actual = " + actualValue, "💥 Value is NOT displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+            this.embedFullPageScreenshot("💥 Value is NOT displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+            LoggerLoad.info("FAILED: Value is displayed as Expected = " + expectedValue + " ; Actual = " + actualValue);
+        }
+        Assert.assertEquals(actualValue, expectedValue);
     }
 }
