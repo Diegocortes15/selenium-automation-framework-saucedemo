@@ -1,24 +1,40 @@
 package core;
 
-import core.LoggerLoad;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.ByteArrayInputStream;
+import java.time.Duration;
 import java.util.Objects;
 
 public class SeleniumFactory {
 
     private final WebDriver driver;
+    private final WebDriverWait wait;
+
 
     public SeleniumFactory(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofMillis(FrameworkConfig.ELEMENT_TIMEOUT));
+    }
+
+    public void waitElementUntil(WebElement webElement, String type) {
+        switch (type) {
+            case "VISIBLE":
+                wait.until(ExpectedConditions.visibilityOf(webElement));
+                break;
+            case "CLICKABLE":
+                wait.until(ExpectedConditions.elementToBeClickable(webElement));
+                break;
+        }
     }
 
     @Step("📸 {0} - 📸 Full page screenshot")
@@ -28,12 +44,14 @@ public class SeleniumFactory {
 
     @Step("⏩ \"{0}\" Element is clicked")
     public void click(WebElement webElement) {
+        waitElementUntil(webElement, "CLICKABLE");
         webElement.click();
         LoggerLoad.info(webElement + " Element is clicked");
     }
 
     @Step("⏩ \"{0}\" is entered with \"{1}\"")
     public void sendKeys(WebElement webElement, String strValue) {
+        waitElementUntil(webElement, "CLICKABLE");
         webElement.sendKeys(strValue);
         LoggerLoad.info(webElement + " is entered with " + strValue);
     }
@@ -79,5 +97,20 @@ public class SeleniumFactory {
             LoggerLoad.error("FAILED: " + webElement + " text is NOT displayed as Expected = " + strExpectedValue + " ; Actual = " + actualValue);
         }
         Assert.assertTrue(actualValue.contains(strExpectedValue));
+    }
+
+    @Step("🧪 Verifying that the user is in the url \"{0}\"")
+    public void verifyURLToBe(String expectURL) {
+        String actualURL = driver.getCurrentUrl();
+        if (wait.until(ExpectedConditions.urlToBe(expectURL))) {
+            Allure.addAttachment("✅ URL page is as Expected = " + expectURL + " ; Actual = " + actualURL, "✅ URL page is as Expected = " + expectURL + " ; Actual = " + actualURL);
+            this.embedFullPageScreenshot("✅ URL page is as Expected = " + expectURL + " ; Actual = " + actualURL);
+            LoggerLoad.info("PASSED: URL page is as Expected = " + expectURL + " ; Actual = " + actualURL);
+        } else {
+            Allure.addAttachment("💥 URL page is NOT as Expected = " + expectURL + " ; Actual = " + actualURL, "💥 URL page is NOT as Expected = " + expectURL + " ; Actual = " + actualURL);
+            this.embedFullPageScreenshot("💥 URL page is NOT as Expected = " + expectURL + " ; Actual = " + actualURL);
+            LoggerLoad.info("FAILED: URL page is NOT as Expected = " + expectURL + " ; Actual = " + actualURL);
+        }
+        Assert.assertEquals(actualURL, expectURL);
     }
 }

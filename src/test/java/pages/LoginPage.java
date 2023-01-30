@@ -1,10 +1,13 @@
 package pages;
 
+import core.FrameworkConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
+
+    private final String url = FrameworkConfig.BASE_URL;
 
     @FindBy(id = "user-name")
     private WebElement inputUser;
@@ -18,12 +21,19 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".error-message-container.error")
     private WebElement errorMessage;
 
+    @FindBy(className = "login_logo")
+    private WebElement loginLogo;
+
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
     public void goTo() {
-        driver.navigate().to("https://www.saucedemo.com/");
+        driver.navigate().to(this.url);
+    }
+
+    public void waitUntilLogoBeVisible() {
+        seleniumFactory.waitElementUntil(loginLogo, "VISIBLE");
     }
 
     public void enterUsername(String username) {
@@ -47,14 +57,19 @@ public class LoginPage extends BasePage {
         return new ProductsPage(driver);
     }
 
-    public void login(String username, String password) {
+    public ProductsPage login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
-        seleniumFactory.embedFullPageScreenshot("Login - Screenshot");
-        clickButtonSubmit();
+        seleniumFactory.embedFullPageScreenshot("Login with \"" + username + "\" username - Screenshot");
+        return clickButtonSubmit();
     }
 
     public void verifyValidationMessage(String validationMessage) {
         seleniumFactory.verifyText(errorMessage, validationMessage);
+    }
+
+    public void verifyLoginURL() {
+        waitUntilLogoBeVisible();
+        seleniumFactory.verifyURLToBe(this.url);
     }
 }

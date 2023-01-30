@@ -1,8 +1,9 @@
 package pages;
 
+import core.SeleniumFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import core.SeleniumFactory;
+
 
 public abstract class BasePage {
     protected WebDriver driver;
