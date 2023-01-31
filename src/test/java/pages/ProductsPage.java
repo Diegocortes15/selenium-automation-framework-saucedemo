@@ -7,22 +7,33 @@ import org.openqa.selenium.support.FindBy;
 import pages.components.HeaderComponent;
 import utils.SupportFactory;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductsPage extends BasePage {
 
     private final HeaderComponent headerComponent;
     private final SupportFactory supportFactory;
+    private Set<Integer> indexProductsToAdd;
+    private String itemsAdded;
 
     @FindBy(className = "title")
     private WebElement pageTitle;
 
+    @FindBy(className = "inventory_item_name")
+    private List<WebElement> itemNameList;
+
     @FindBy(className = "inventory_item_price")
     private List<WebElement> itemPriceList;
 
+    @FindBy(css = "button.btn_inventory")
+    private List<WebElement> itemBtnList;
+
     @FindBy(css = "[data-test='product_sort_container']")
     private WebElement dropdownProductSort;
+
+    @FindBy(className = "inventory_item")
+    private List<WebElement> itemList;
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -48,9 +59,50 @@ public class ProductsPage extends BasePage {
     }
 
     public void verifyPricesOrdered(List<String> actualPrices, List<String> expectedPrices) {
-        String actual = supportFactory.ListToString(actualPrices);
-        String expected = supportFactory.ListToString(expectedPrices);
+        String actual = supportFactory.listToString(actualPrices);
+        String expected = supportFactory.listToString(expectedPrices);
         seleniumFactory.verifyCompareValues(actual, expected);
+    }
+
+    public void productsRandomToAdd() {
+        int productListLength = itemList.size();
+        Set<Integer> newIndexProductList = new HashSet<>();
+        for (int i = 0; i < productListLength; i++) {
+            newIndexProductList.add(supportFactory.getRandomNaturalNumber(productListLength));
+        }
+        this.indexProductsToAdd = newIndexProductList;
+    }
+
+    public void addProducts() {
+        this.productsRandomToAdd();
+        List<String> productsAdded = new ArrayList<>();
+        for (int i = 0; i < indexProductsToAdd.size(); i++) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put("itemName", seleniumFactory.getTextByIndex(itemNameList, i));
+            item.put("itemPrice", seleniumFactory.getTextByIndex(itemPriceList, i));
+            productsAdded.add(String.valueOf(item));
+            seleniumFactory.clickByIndex(itemBtnList, i);
+        }
+        this.itemsAdded = supportFactory.listToString(productsAdded);
+        seleniumFactory.embedFullPageScreenshot("Products added");
+    }
+
+    public void addSpecificProduct(String productName) {
+        List<String> productsAdded = new ArrayList<>();
+        HashMap<String, String> item = new HashMap<>();
+        String reformatProductName = productName.toLowerCase();
+        List<String> productListName = itemNameList.stream().map(name -> name.getText().toLowerCase()).collect(Collectors.toList());
+        int indexProduct = productListName.indexOf(reformatProductName);
+        item.put("itemName", seleniumFactory.getTextByIndex(itemNameList, indexProduct));
+        item.put("itemPrice", seleniumFactory.getTextByIndex(itemPriceList, indexProduct));
+        productsAdded.add(String.valueOf(item));
+        seleniumFactory.clickByIndex(itemBtnList, indexProduct);
+        this.itemsAdded = supportFactory.listToString(productsAdded);
+        seleniumFactory.embedFullPageScreenshot(productName + "Product added");
+    }
+
+    public String getItemsAdded() {
+        return this.itemsAdded;
     }
 
     public HeaderComponent getHeaderComponent() {
