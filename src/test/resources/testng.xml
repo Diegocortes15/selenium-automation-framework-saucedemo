@@ -86,4 +86,25 @@
         </classes>
     </test>
 
+    <test name="TestStory: PW_0018 - CHROME">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="specs.PW_0018"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0018 - EDGE">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="specs.PW_0018"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0018 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0018"/>
+        </classes>
+    </test>
+
 </suite>
