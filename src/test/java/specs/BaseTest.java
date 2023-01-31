@@ -12,9 +12,6 @@ import org.testng.annotations.Parameters;
 public abstract class BaseTest {
     public WebDriver driver;
 
-    protected BaseTest() {
-    }
-
     @BeforeMethod
     @Description("Browser start up")
     @Step("⏯ Browser start up - {0}")

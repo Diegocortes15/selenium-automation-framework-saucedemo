@@ -16,7 +16,7 @@ public class PW_0013 extends BaseTest {
 
     @Test
     @Story(storyParent)
-    @Description("Validate the 'standard_user' user can logout")
+    @Description("Validate the products have been sorted by price correctly, low to high")
     @Severity(SeverityLevel.NORMAL)
     public void pw_0014() {
         ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0014.json");
