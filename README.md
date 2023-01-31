@@ -49,3 +49,5 @@ mvn clean verify
 ```bash
 allure serve target/allure-results
 ```
+
+![Animation 4](https://user-images.githubusercontent.com/60171460/215754305-ce8f94ec-e7ea-48e6-9b3c-340eef1b9242.gif)
