@@ -22,6 +22,9 @@ public class CartPage extends BasePage {
     @FindBy(className = "cart_item")
     private List<WebElement> itemCartList;
 
+    @FindBy(css = "[data-test='checkout']")
+    private WebElement buttonCheckout;
+
     public CartPage(WebDriver driver) {
         super(driver);
         this.supportFactory = new SupportFactory();
@@ -41,6 +44,11 @@ public class CartPage extends BasePage {
     public void verifyProductsAdded(String expectedProductsAdded) {
         String products = this.getCartProducts();
         seleniumFactory.verifyCompareValues(products, expectedProductsAdded);
+    }
+
+    public CheckoutInformationPage clickCheckoutButton() {
+        seleniumFactory.click(buttonCheckout);
+        return new CheckoutInformationPage(driver);
     }
 
 }

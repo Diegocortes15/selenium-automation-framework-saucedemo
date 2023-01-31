@@ -8,7 +8,7 @@ import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductsPage;
 
-@Feature("Login")
+@Feature("Shopping Cart")
 public class PW_0015 extends BaseTest {
 
     private final String storyParent = "pw-0015";
