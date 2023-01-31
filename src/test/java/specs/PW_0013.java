@@ -9,7 +9,7 @@ import pages.ProductsPage;
 
 import java.util.List;
 
-@Feature("Login")
+@Feature("Sort Products")
 public class PW_0013 extends BaseTest {
 
     private final String storyParent = "pw-0013";
