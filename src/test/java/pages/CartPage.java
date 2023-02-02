@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +31,7 @@ public class CartPage extends BasePage {
         this.supportFactory = new SupportFactory();
     }
 
+    @Step("⏩ Get cart products")
     public String getCartProducts() {
         List<String> cartProductsAdded = new ArrayList<>();
         for (int i = 0; i < itemCartList.size(); i++) {
@@ -41,11 +43,13 @@ public class CartPage extends BasePage {
         return supportFactory.listToString(cartProductsAdded);
     }
 
+    @Step("🧪 Verify products added: \"{0}\"")
     public void verifyProductsAdded(String expectedProductsAdded) {
         String products = this.getCartProducts();
         seleniumFactory.verifyCompareValues(products, expectedProductsAdded);
     }
 
+    @Step("⏩ Click on checkout button")
     public CheckoutInformationPage clickCheckoutButton() {
         seleniumFactory.click(buttonCheckout);
         return new CheckoutInformationPage(driver);
