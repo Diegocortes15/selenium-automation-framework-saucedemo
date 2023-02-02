@@ -1,5 +1,6 @@
 package pages.components;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,19 +22,23 @@ public class HeaderComponent extends BasePage {
         super(driver);
     }
 
+    @Step("⏩ Click on burger button")
     public void clickBurgerButton() {
         seleniumFactory.click(burgerButton);
     }
 
+    @Step("⏩ Click on logout button")
     public void clickLogoutButton() {
         seleniumFactory.click(logoutButton);
     }
 
+    @Step("⏩ Click on shopping cart button")
     public CartPage clickShoppingCartButton() {
         seleniumFactory.click(shoppingCartButton);
         return new CartPage(driver);
     }
 
+    @Step("⏩ Click on logout")
     public void logout() {
         clickBurgerButton();
         clickLogoutButton();
