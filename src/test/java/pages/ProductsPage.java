@@ -1,6 +1,7 @@
 package pages;
 
 import com.google.common.base.Functions;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,7 @@ public class ProductsPage extends BasePage {
         this.supportFactory = new SupportFactory();
     }
 
+    @Step("🧪 Verify current page title: \"{0}\"")
     public void verifyCurrentPage(String expectedTitlePage) {
         seleniumFactory.verifyText(pageTitle, expectedTitlePage);
     }
@@ -54,10 +56,12 @@ public class ProductsPage extends BasePage {
         return orderedPrices.stream().map(Functions.toStringFunction()).collect(Collectors.toList());
     }
 
+    @Step("⏩ Sort products by visible text: \"{0}\"")
     public void sortProductsByVisibleText(String optionByVisibleText) {
         seleniumFactory.selectByVisibleText(dropdownProductSort, optionByVisibleText);
     }
 
+    @Step("🧪 Verify prices ordered: \"{1}\"")
     public void verifyPricesOrdered(List<String> actualPrices, List<String> expectedPrices) {
         String actual = supportFactory.listToString(actualPrices);
         String expected = supportFactory.listToString(expectedPrices);
@@ -73,6 +77,7 @@ public class ProductsPage extends BasePage {
         this.indexProductsToAdd = newIndexProductList;
     }
 
+    @Step("⏩ Add products")
     public void addProducts() {
         this.productsRandomToAdd();
         List<String> productsAdded = new ArrayList<>();
@@ -87,6 +92,7 @@ public class ProductsPage extends BasePage {
         seleniumFactory.embedFullPageScreenshot("Products added");
     }
 
+    @Step("⏩ Add product: \"{0}\"")
     public void addSpecificProduct(String productName) {
         List<String> productsAdded = new ArrayList<>();
         HashMap<String, String> item = new HashMap<>();

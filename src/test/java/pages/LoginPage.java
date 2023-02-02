@@ -1,6 +1,7 @@
 package pages;
 
 import core.FrameworkConfig;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,42 +22,42 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".error-message-container.error")
     private WebElement errorMessage;
 
-    @FindBy(className = "login_logo")
-    private WebElement loginLogo;
-
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
+    @Step("⏩ Go to " + url)
     public void goTo() {
         driver.navigate().to(this.url);
     }
 
-    public void waitUntilLogoBeVisible() {
-        seleniumFactory.waitElementUntil(loginLogo, "VISIBLE");
-    }
-
+    @Step("⏩ Enter username: \"{0}\"")
     public void enterUsername(String username) {
         seleniumFactory.sendKeys(inputUser, username);
     }
 
+    @Step("⏩ Enter password")
     public void enterPassword(String password) {
         seleniumFactory.sendKeys(inputPassword, password);
     }
 
+    @Step("🧪 Verify username: \"{0}\"")
     public void verifyUsername(String expectedUsername) {
         seleniumFactory.verifyValue(inputUser, expectedUsername);
     }
 
+    @Step("🧪 Verify password")
     public void verifyPassword(String expectedPassword) {
         seleniumFactory.verifyValue(inputPassword, expectedPassword);
     }
 
+    @Step("⏩ Click on submit button")
     public ProductsPage clickButtonSubmit() {
         seleniumFactory.click(buttonSubmit);
         return new ProductsPage(driver);
     }
 
+    @Step("⏩ Login with username: \"{0}\"")
     public ProductsPage login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
@@ -64,12 +65,13 @@ public class LoginPage extends BasePage {
         return clickButtonSubmit();
     }
 
+    @Step("🧪 Verify validation message: \"{0}\"")
     public void verifyValidationMessage(String validationMessage) {
         seleniumFactory.verifyText(errorMessage, validationMessage);
     }
 
+    @Step("🧪 Verify URL:" + url)
     public void verifyLoginURL() {
-        waitUntilLogoBeVisible();
         seleniumFactory.verifyURLToBe(this.url);
     }
 }
