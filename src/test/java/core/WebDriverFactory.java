@@ -1,9 +1,10 @@
 package core;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverFactory {
@@ -11,18 +12,23 @@ public class WebDriverFactory {
         WebDriver driver = null;
         BrowserList browserType = BrowserList.valueOf(browser.toUpperCase());
 
+
         switch (browserType) {
             case CHROME:
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--remote-allow-origins=*");
+                System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver.exe");
+                driver = new ChromeDriver(chromeOptions);
                 break;
             case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
+                System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver.exe");
                 driver = new FirefoxDriver();
                 break;
             case EDGE:
-                WebDriverManager.edgedriver().setup();
-                driver = new EdgeDriver();
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--remote-allow-origins=*");
+                System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver.exe");
+                driver = new EdgeDriver(edgeOptions);
                 break;
         }
         return driver;
