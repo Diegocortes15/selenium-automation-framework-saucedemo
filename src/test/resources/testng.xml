@@ -9,36 +9,8 @@
         </classes>
     </test>
 
-    <test name="TestStory: PW_0001 - EDGE">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="specs.PW_0001"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0001 - FIREFOX">
-        <parameter name="browser" value="firefox"/>
-        <classes>
-            <class name="specs.PW_0001"/>
-        </classes>
-    </test>
-
     <test name="TestStory: PW_0002 - CHROME">
         <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="specs.PW_0002"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0002 - EDGE">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="specs.PW_0002"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0002 - FIREFOX">
-        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="specs.PW_0002"/>
         </classes>
@@ -51,36 +23,8 @@
         </classes>
     </test>
 
-    <test name="TestStory: PW_0013 - EDGE">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="specs.PW_0013"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0013 - FIREFOX">
-        <parameter name="browser" value="firefox"/>
-        <classes>
-            <class name="specs.PW_0013"/>
-        </classes>
-    </test>
-
     <test name="TestStory: PW_0015 - CHROME">
         <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="specs.PW_0015"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0015 - EDGE">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="specs.PW_0015"/>
-        </classes>
-    </test>
-
-    <test name="TestStory: PW_0015 - FIREFOX">
-        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="specs.PW_0015"/>
         </classes>
@@ -93,10 +37,67 @@
         </classes>
     </test>
 
+    <test name="TestStory: PW_0001 - EDGE">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="specs.PW_0001"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0002 - EDGE">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="specs.PW_0002"/>
+        </classes>
+    </test>
+
+
+    <test name="TestStory: PW_0013 - EDGE">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="specs.PW_0013"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0015 - EDGE">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="specs.PW_0015"/>
+        </classes>
+    </test>
+
     <test name="TestStory: PW_0018 - EDGE">
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="specs.PW_0018"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0001 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0001"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0002 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0002"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0013 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0013"/>
+        </classes>
+    </test>
+
+    <test name="TestStory: PW_0015 - FIREFOX">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="specs.PW_0015"/>
         </classes>
     </test>
 
