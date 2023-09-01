@@ -35,7 +35,11 @@ public class WebDriverFactory {
     ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
-        if (HEADLESS) chromeOptions.addArguments("--headless=new");
+        if (HEADLESS) {
+            chromeOptions.addArguments("--headless=new");
+            chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+        }
         return chromeOptions;
     }
 
