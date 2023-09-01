@@ -13,5 +13,22 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
+
+      - name: Install browsers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox
+          sudo apt-get install -y chromium-browser
+          sudo apt-get install -y microsoft-edge-dev
+
+      - name: Check Chrome version
+        run: chromium-browser --version
+
+      - name: Check Firefox version
+        run: firefox --version
+
+      - name: Check Microsoft Edge version
+        run: microsoft-edge-dev --version
+
       - name: Build with Maven
         run: mvn clean verify
