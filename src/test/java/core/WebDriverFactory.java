@@ -14,18 +14,31 @@ public class WebDriverFactory {
     public WebDriver createInstance(String browser) {
         WebDriver driver = null;
         BrowserList browserType = BrowserList.valueOf(browser.toUpperCase());
+        String operativeSystem = System.getProperty("os.name").toLowerCase();
 
         switch (browserType) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver.exe");
+                if (operativeSystem.contains("win")) {
+                    System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver.exe");
+                } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
+                    System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver");
+                }
                 driver = new ChromeDriver(getChromeOptions());
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver.exe");
+                if (operativeSystem.contains("win")) {
+                    System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver.exe");
+                } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
+                    System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver");
+                }
                 driver = new FirefoxDriver(getFirefoxOptions());
                 break;
             case EDGE:
-                System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver.exe");
+                if (operativeSystem.contains("win")) {
+                    System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver.exe");
+                } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
+                    System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver");
+                }
                 driver = new EdgeDriver(getEdgeOptions());
                 break;
         }
