@@ -14,21 +14,17 @@ pipeline {
             }
         }
 
-        stage('Generate Allure Reports') {
+        stage('reports') {
             steps {
-                bat 'allure generate target/allure-results -o target/allure-reports'
+            script {
+                    allure([
+                            includeProperties: false,
+                            jdk: '',
+                            properties: [],
+                            reportBuildPolicy: 'ALWAYS',
+                            results: [[path: 'target/allure-results']]
+                    ])
             }
-        }
-
-        stage('Publish Allure Reports') {
-            steps {
-                allure([includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]])
-            }
-        }
-
-        stage('Archive Artifacts') {
-            steps {
-                archiveArtifacts artifacts: 'target/allure-reports', allowEmptyArchive: true
             }
         }
     }
