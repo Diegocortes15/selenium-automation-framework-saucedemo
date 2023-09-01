@@ -21,7 +21,7 @@ public class WebDriverFactory {
                 if (operativeSystem.contains("win")) {
                     System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver.exe");
                 } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
-                    System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriver");
+                    System.setProperty("webdriver.chrome.driver", "src/test/java/core/WebDrivers/chromedriverx");
                 }
                 driver = new ChromeDriver(getChromeOptions());
                 break;
@@ -29,7 +29,7 @@ public class WebDriverFactory {
                 if (operativeSystem.contains("win")) {
                     System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver.exe");
                 } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
-                    System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriver");
+                    System.setProperty("webdriver.firefox.driver", "src/test/java/core/WebDrivers/geckodriverx");
                 }
                 driver = new FirefoxDriver(getFirefoxOptions());
                 break;
@@ -37,7 +37,7 @@ public class WebDriverFactory {
                 if (operativeSystem.contains("win")) {
                     System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver.exe");
                 } else if (operativeSystem.contains("nix") || operativeSystem.contains("nux")) {
-                    System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriver");
+                    System.setProperty("webdriver.edge.driver", "src/test/java/core/WebDrivers/msedgedriverx");
                 }
                 driver = new EdgeDriver(getEdgeOptions());
                 break;
