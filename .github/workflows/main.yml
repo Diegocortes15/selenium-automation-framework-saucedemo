@@ -20,16 +20,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install browsers
-        steps:
-          - uses: browser-actions/setup-edge@v1
-          - run: (Get-Item (Get-Command msedge).Source).VersionInfo.ProductVersion
+      - uses: browser-actions/setup-edge@v1
+      - name: Print Edge version
+      - run: (Get-Item (Get-Command msedge).Source).VersionInfo.ProductVersion
 
-          - uses: browser-actions/setup-firefox@v1
-          - run: firefox --version
+      - uses: browser-actions/setup-firefox@v1
+      - run: firefox --version
 
-          - uses: browser-actions/setup-chrome@v1
-          - run: chrome --version
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
 
       - name: Build with Maven
         run: mvn clean verify
