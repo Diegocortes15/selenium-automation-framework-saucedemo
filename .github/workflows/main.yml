@@ -24,7 +24,9 @@ jobs:
         uses: browser-actions/setup-edge@v1
 
       - name: Print Edge version
-        run: (Get-Item (Get-Command msedge).Source).VersionInfo.ProductVersion
+        run: |
+          echo "Microsoft Edge Version:"
+          msedge --version
 
       - name: Set up Firefox
         uses: browser-actions/setup-firefox@v1
