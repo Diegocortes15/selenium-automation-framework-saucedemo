@@ -1,4 +1,4 @@
-name: Selenium Tests - SUT saucedemo
+name: Selenium_Tests_SUT_saucedemo
 
 on:
   push:
@@ -30,15 +30,6 @@ jobs:
 
           - uses: browser-actions/setup-chrome@v1
           - run: chrome --version
-
-      - name: Check Chrome version
-        run: chromium-browser --version
-
-      - name: Check Firefox version
-        run: firefox --version
-
-      - name: Check Microsoft Edge version
-        run: microsoft-edge-dev --version
 
       - name: Build with Maven
         run: mvn clean verify
