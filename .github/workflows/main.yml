@@ -21,16 +21,15 @@ jobs:
           cache: maven
 
       - name: Install browsers
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y firefox
-          sudo apt-get install -y chromium-browser
+        steps:
+          - uses: browser-actions/setup-edge@v1
+          - run: (Get-Item (Get-Command msedge).Source).VersionInfo.ProductVersion
 
-          # Install Microsoft Edge from the Microsoft repository
-          wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-          echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge-dev.list
-          sudo apt-get update
-          sudo apt-get install -y microsoft-edge-dev
+          - uses: browser-actions/setup-firefox@v1
+          - run: firefox --version
+
+          - uses: browser-actions/setup-chrome@v1
+          - run: chrome --version
 
       - name: Check Chrome version
         run: chromium-browser --version
