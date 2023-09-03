@@ -31,8 +31,15 @@ jobs:
           sonarQubeRunAnalysis: false
 
       - script: |
+          # Install Allure
+          wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.15.0/allure-commandline-2.15.0.zip
+          unzip allure-commandline-2.15.0.zip -d /opt/
+          echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
+          source ~/.bashrc
+
+          # Generate Allure Report
           allure generate target/allure-results --clean
-        displayName: 'Generating Allure Report'
+        displayName: 'Installing and Generating Allure Report'
 
       - task: PublishTestResults@2
         inputs:
