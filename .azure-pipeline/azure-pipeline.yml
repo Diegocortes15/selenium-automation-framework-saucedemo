@@ -1,0 +1,40 @@
+trigger:
+  - main
+  - develop
+
+pr:
+  - main
+  - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: 'BuildAndTest'
+    steps:
+      - checkout: self
+
+      - task: UseJavaVersion@0
+        inputs:
+          versionSpec: '11.x'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'Installer'
+
+      - script: |
+          echo "Microsoft Edge Version:"
+          msedge --version
+        displayName: 'Print Edge version'
+
+      - script: |
+          echo "Firefox Version:"
+          firefox --version
+        displayName: 'Print Firefox version'
+
+      - script: |
+          echo "Chrome Version:"
+          google-chrome --version
+        displayName: 'Print Chrome version'
+
+      - script: |
+          mvn clean verify
+        displayName: 'Build with Maven'
