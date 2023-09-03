@@ -33,3 +33,15 @@ jobs:
     - script: |
         mvn clean verify
       displayName: 'Build with Maven'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFiles: '**/allure-report/data/test-cases/*.json'
+        searchFolder: '$(Build.SourcesDirectory)'
+        testRunTitle: 'Allure Test Run'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)/target/allure-report'
+        ArtifactName: 'AllureReport'
+        publishLocation: 'Container'
