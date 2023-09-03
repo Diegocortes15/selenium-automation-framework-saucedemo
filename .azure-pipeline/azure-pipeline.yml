@@ -31,18 +31,9 @@ jobs:
         sonarQubeRunAnalysis: false
 
     - script: |
-        echo "Microsoft Edge Version:"
-        msedge --version
-      displayName: 'Print Edge version'
-
-    - script: |
-        echo "Firefox Version:"
-        firefox --version
-      displayName: 'Print Firefox version'
-
-    - script: |
         echo "Chrome Version:"
-        google-chrome --version
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
       displayName: 'Print Chrome version'
 
     - script: |
