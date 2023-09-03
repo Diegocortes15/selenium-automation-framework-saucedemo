@@ -40,6 +40,7 @@ jobs:
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           testRunTitle: 'Allure Test Run'
+          mergeTestResults: true
 
       - task: PublishBuildArtifacts@1
         inputs:

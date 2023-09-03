@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.components.HeaderComponent;
+import pages.components.SideBar;
 import utils.SupportFactory;
 
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class ProductsPage extends BasePage {
 
     private final HeaderComponent headerComponent;
+    private final SideBar sideBarMenu;
     private final SupportFactory supportFactory;
     private Set<Integer> indexProductsToAdd;
     private String itemsAdded;
@@ -39,6 +41,7 @@ public class ProductsPage extends BasePage {
     public ProductsPage(WebDriver driver) {
         super(driver);
         this.headerComponent = new HeaderComponent(driver);
+        this.sideBarMenu = new SideBar(driver);
         this.supportFactory = new SupportFactory();
     }
 
@@ -113,5 +116,9 @@ public class ProductsPage extends BasePage {
 
     public HeaderComponent getHeaderComponent() {
         return headerComponent;
+    }
+
+    public SideBar getSideBarMenu() {
+        return sideBarMenu;
     }
 }

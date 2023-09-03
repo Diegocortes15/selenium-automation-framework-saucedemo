@@ -25,7 +25,8 @@ public class PW_0002 extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         ProductsPage productsPage = loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
-        productsPage.getHeaderComponent().logout();
+        productsPage.getHeaderComponent().clickBurgerButton();
+        productsPage.getSideBarMenu().clickLogoutButton();
         loginPage.verifyLoginURL();
     }
 
@@ -42,7 +43,8 @@ public class PW_0002 extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         ProductsPage productsPage = loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
-        productsPage.getHeaderComponent().logout();
+        productsPage.getHeaderComponent().clickBurgerButton();
+        productsPage.getSideBarMenu().clickLogoutButton();
         loginPage.verifyLoginURL();
     }
 
@@ -59,7 +61,8 @@ public class PW_0002 extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.goTo();
         ProductsPage productsPage = loginPage.login((String) dataLoginPage.get("username"), (String) dataLoginPage.get("password"));
-        productsPage.getHeaderComponent().logout();
+        productsPage.getHeaderComponent().clickBurgerButton();
+        productsPage.getSideBarMenu().clickLogoutButton();
         loginPage.verifyLoginURL();
     }
 
