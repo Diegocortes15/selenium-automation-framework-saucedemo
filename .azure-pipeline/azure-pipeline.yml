@@ -12,29 +12,39 @@ pool:
 jobs:
   - job: 'BuildAndTest'
     steps:
-      - checkout: self
 
-      - task: UseJavaVersion@0
-        inputs:
-          versionSpec: '11.x'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'Installer'
+    - task: JavaToolInstaller@0
+      inputs:
+        versionSpec: '11'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
 
-      - script: |
-          echo "Microsoft Edge Version:"
-          msedge --version
-        displayName: 'Print Edge version'
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
 
-      - script: |
-          echo "Firefox Version:"
-          firefox --version
-        displayName: 'Print Firefox version'
+    - script: |
+        echo "Microsoft Edge Version:"
+        msedge --version
+      displayName: 'Print Edge version'
 
-      - script: |
-          echo "Chrome Version:"
-          google-chrome --version
-        displayName: 'Print Chrome version'
+    - script: |
+        echo "Firefox Version:"
+        firefox --version
+      displayName: 'Print Firefox version'
 
-      - script: |
-          mvn clean verify
-        displayName: 'Build with Maven'
+    - script: |
+        echo "Chrome Version:"
+        google-chrome --version
+      displayName: 'Print Chrome version'
+
+    - script: |
+        mvn clean verify
+      displayName: 'Build with Maven'
