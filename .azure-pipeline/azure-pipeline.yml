@@ -30,14 +30,11 @@ jobs:
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
 
-    - script: |
-        mvn clean verify
-      displayName: 'Build with Maven'
-
     - task: PublishTestResults@2
       inputs:
-        testResultsFiles: '**/allure-report/data/test-cases/*.json'
-        searchFolder: '$(Build.SourcesDirectory)'
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
         testRunTitle: 'Allure Test Run'
 
     - task: PublishBuildArtifacts@1
