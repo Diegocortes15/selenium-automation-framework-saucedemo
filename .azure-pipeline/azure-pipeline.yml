@@ -45,7 +45,7 @@ jobs:
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '**/surefire-reports/testng-results.xml'
+          testResultsFiles: '**/surefire-reports/junitreports/TEST-*.xml'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           testRunTitle: 'Allure Test Run'
           condition: always()
