@@ -5,6 +5,9 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+permissions:
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
@@ -49,12 +52,14 @@ jobs:
         run: mvn clean verify
 
       - name: Generate Allure Report
+        if: always()
         run: |
           export PATH=$PATH:/opt/allure-2.24.0/bin
           source ~/.bashrc
           allure generate target/allure-results --clean
 
       - name: 'Upload Artifact Allure Report'
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
@@ -62,8 +67,16 @@ jobs:
           retention-days: 14
 
       - name: 'Upload Artifact Log'
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: Framework Log
           path: target/logger.log
           retention-days: 14
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            TEST-*.xml
