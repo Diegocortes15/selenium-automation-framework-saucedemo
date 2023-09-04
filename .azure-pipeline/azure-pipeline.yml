@@ -39,6 +39,7 @@ jobs:
           export PATH=$PATH:/opt/allure-2.24.0/bin
           source ~/.bashrc
           allure generate target/allure-results --clean
+        condition: always()
         displayName: 'Generating Allure Report'
 
       - task: PublishTestResults@2
@@ -47,6 +48,7 @@ jobs:
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           testRunTitle: 'Allure Test Run'
+          condition: always()
           mergeTestResults: true
 
       - task: PublishBuildArtifacts@1
@@ -54,9 +56,11 @@ jobs:
           PathtoPublish: '$(Build.SourcesDirectory)/allure-report'
           ArtifactName: 'AllureReport'
           publishLocation: 'Container'
+          condition: always()
 
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.SourcesDirectory)/target/logger.log'
           ArtifactName: 'Logs'
           publishLocation: 'Container'
+          condition: always()
