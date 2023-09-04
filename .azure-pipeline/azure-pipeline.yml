@@ -22,9 +22,12 @@ jobs:
       - script: |
           wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.15.0/allure-commandline-2.15.0.zip
           unzip allure-commandline-2.15.0.zip -d /opt/
+        displayName: 'Installing Allure'
+
+      - script: |
           echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
           source ~/.bashrc
-        displayName: 'Installing Allure'
+        displayName: 'Setting PATH for Allure'
 
       - task: Maven@4
         inputs:
