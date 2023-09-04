@@ -22,7 +22,6 @@ jobs:
       - script: |
           wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip
           unzip allure-commandline-2.24.0.zip -d /opt/
-          export PATH=$PATH:/opt/allure-2.24.0/bin
         displayName: 'Installing Allure'
 
       - task: Maven@4
@@ -37,6 +36,8 @@ jobs:
           sonarQubeRunAnalysis: false
 
       - script: |
+          export PATH=$PATH:/opt/allure-2.24.0/bin
+          source ~/.bashrc
           allure generate target/allure-results --clean
         displayName: 'Generating Allure Report'
 
@@ -59,4 +60,3 @@ jobs:
           PathtoPublish: '$(Build.SourcesDirectory)/target/logger.log'
           ArtifactName: 'Logs'
           publishLocation: 'Container'
-

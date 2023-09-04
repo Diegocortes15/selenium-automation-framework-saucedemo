@@ -20,6 +20,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Install Allure
+        run: |
+          wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip
+          unzip allure-commandline-2.24.0.zip -d /opt/
+
       - name: Set up Microsoft Edge
         uses: browser-actions/setup-edge@v1
 
@@ -42,3 +47,20 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean verify
+
+      - name: Generate Allure Report
+        run: allure generate target/allure-results --clean
+
+      - name: 'Upload Artifact Allure Report'
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: $(github.workspace)/allure-report
+          retention-days: 14
+
+      - name: 'Upload Artifact Log'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Framework Log
+          path: $(github.workspace)/target/logger.log
+          retention-days: 14
