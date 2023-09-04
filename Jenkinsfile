@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tool {
+        maven 'MAVEN_HOME'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,6 +14,7 @@ pipeline {
 
         stage('Build and Test') {
             steps {
+                git branch: 'develop', url: 'https://github.com/Diegocortes15/selenium-automation-framework-saucedemo'
                 bat "mvn clean verify"
             }
         }

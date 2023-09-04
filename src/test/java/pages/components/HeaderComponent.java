@@ -12,9 +12,6 @@ public class HeaderComponent extends BasePage {
     @FindBy(className = "bm-burger-button")
     private WebElement burgerButton;
 
-    @FindBy(id = "logout_sidebar_link")
-    private WebElement logoutButton;
-
     @FindBy(className = "shopping_cart_link")
     private WebElement shoppingCartButton;
 
@@ -27,20 +24,9 @@ public class HeaderComponent extends BasePage {
         seleniumFactory.click(burgerButton);
     }
 
-    @Step("⏩ Click on logout button")
-    public void clickLogoutButton() {
-        seleniumFactory.click(logoutButton);
-    }
-
     @Step("⏩ Click on shopping cart button")
     public CartPage clickShoppingCartButton() {
         seleniumFactory.click(shoppingCartButton);
         return new CartPage(driver);
-    }
-
-    @Step("⏩ Click on logout")
-    public void logout() {
-        clickBurgerButton();
-        clickLogoutButton();
     }
 }

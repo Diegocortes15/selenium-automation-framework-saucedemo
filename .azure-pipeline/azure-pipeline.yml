@@ -1,0 +1,66 @@
+trigger:
+  - main
+  - develop
+
+pr:
+  - main
+  - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: 'BuildAndTest'
+    steps:
+
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - script: |
+          wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip
+          unzip allure-commandline-2.24.0.zip -d /opt/
+        displayName: 'Installing Allure'
+
+      - task: Maven@4
+        inputs:
+          mavenPomFile: 'pom.xml'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+
+      - script: |
+          export PATH=$PATH:/opt/allure-2.24.0/bin
+          source ~/.bashrc
+          allure generate target/allure-results --clean
+        condition: always()
+        displayName: 'Generating Allure Report'
+
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: '**/surefire-reports/testng-results.xml'
+          searchFolder: '$(System.DefaultWorkingDirectory)'
+          testRunTitle: 'Allure Test Run'
+          condition: always()
+          mergeTestResults: true
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.SourcesDirectory)/allure-report'
+          ArtifactName: 'AllureReport'
+          publishLocation: 'Container'
+          condition: always()
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.SourcesDirectory)/target/logger.log'
+          ArtifactName: 'Logs'
+          publishLocation: 'Container'
+          condition: always()
