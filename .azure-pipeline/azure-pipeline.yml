@@ -19,6 +19,13 @@ jobs:
           jdkArchitectureOption: 'x64'
           jdkSourceOption: 'PreInstalled'
 
+      - script: |
+          wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.15.0/allure-commandline-2.15.0.zip
+          unzip allure-commandline-2.15.0.zip -d /opt/
+          echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
+          source ~/.bashrc
+        displayName: 'Installing Allure'
+
       - task: Maven@4
         inputs:
           mavenPomFile: 'pom.xml'
@@ -31,15 +38,8 @@ jobs:
           sonarQubeRunAnalysis: false
 
       - script: |
-          # Install Allure
-          wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.15.0/allure-commandline-2.15.0.zip
-          unzip allure-commandline-2.15.0.zip -d /opt/
-          echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
-          source ~/.bashrc
-
-          # Generate Allure Report
           allure generate target/allure-results --clean
-        displayName: 'Installing and Generating Allure Report'
+        displayName: 'Generating Allure Report'
 
       - task: PublishTestResults@2
         inputs:
