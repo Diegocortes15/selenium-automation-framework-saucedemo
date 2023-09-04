@@ -24,11 +24,6 @@ jobs:
           unzip allure-commandline-2.15.0.zip -d /opt/
         displayName: 'Installing Allure'
 
-      - script: |
-          echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
-          source ~/.bashrc
-        displayName: 'Setting PATH for Allure'
-
       - task: Maven@4
         inputs:
           mavenPomFile: 'pom.xml'
@@ -41,6 +36,8 @@ jobs:
           sonarQubeRunAnalysis: false
 
       - script: |
+          echo 'export PATH=$PATH:/opt/allure-2.15.0/bin' >> ~/.bashrc
+          source ~/.bashrc
           allure generate target/allure-results --clean
         displayName: 'Generating Allure Report'
 
