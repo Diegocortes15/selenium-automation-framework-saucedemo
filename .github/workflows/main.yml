@@ -58,12 +58,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
-          path: $(github.workspace)/allure-report
+          path: allure-report
           retention-days: 14
 
       - name: 'Upload Artifact Log'
         uses: actions/upload-artifact@v3
         with:
           name: Framework Log
-          path: $(github.workspace)/target/logger.log
+          path: target/logger.log
           retention-days: 14
