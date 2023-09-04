@@ -79,4 +79,4 @@ jobs:
         if: always()
         with:
           files: |
-            TEST-*.xml
+            **/surefire-reports/testng-results.xml
