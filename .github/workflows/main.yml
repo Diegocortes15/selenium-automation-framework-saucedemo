@@ -31,7 +31,7 @@ jobs:
 
       - name: Start Docker Compose
         run: |
-          docker-compose -f docker/docker-compose.yml up -d
+          docker-compose -f docker/docker-compose.yml up -d --build
         working-directory: ${{ github.workspace }}
 
       - name: Build with Maven
@@ -44,20 +44,14 @@ jobs:
           source ~/.bashrc
           allure generate target/allure-results --clean
 
-      - name: 'Upload Artifact Allure Report'
+      - name: Upload Artifacts - Allure Report - Logger
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
-          name: allure-report
-          path: allure-report
-          retention-days: 14
-
-      - name: 'Upload Artifact Log'
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Framework Log
-          path: target/logger.log
+          name: test-artifacts
+          path: |
+            allure-report
+            target/logger.log
           retention-days: 14
 
       - name: Publish Test Results
