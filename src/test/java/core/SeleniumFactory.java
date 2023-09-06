@@ -21,10 +21,9 @@ public class SeleniumFactory {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-
     public SeleniumFactory(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofMillis(FrameworkConfig.ELEMENT_TIMEOUT));
+        this.wait = new WebDriverWait(driver, Duration.ofMillis(App.ELEMENT_TIMEOUT));
     }
 
     public void waitElementUntil(WebElement webElement, WaitType type) {
