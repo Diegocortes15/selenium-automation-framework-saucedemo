@@ -60,6 +60,13 @@ jobs:
           path: target/logger.log
           retention-days: 14
 
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            **/surefire-reports/junitreports/TEST-*.xml
+
       - name: Stop Docker Compose
         run: |
           docker-compose -f docker/docker-compose.yml down
