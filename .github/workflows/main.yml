@@ -31,7 +31,7 @@ jobs:
 
       - name: Start Docker Compose
         run: |
-          docker-compose -f path/to/your/docker-compose.yml up -d
+          docker-compose -f docker/docker-compose.yml up -d
         working-directory: ${{ github.workspace }}
 
       - name: Build with Maven
@@ -62,5 +62,5 @@ jobs:
 
       - name: Stop Docker Compose
         run: |
-          docker-compose -f path/to/your/docker-compose.yml down
+          docker-compose -f docker/docker-compose.yml down
         working-directory: ${{ github.workspace }}
