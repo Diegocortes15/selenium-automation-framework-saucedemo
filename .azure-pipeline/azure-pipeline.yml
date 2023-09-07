@@ -24,6 +24,11 @@ jobs:
           unzip allure-commandline-2.24.0.zip -d /opt/
         displayName: 'Installing Allure'
 
+      - script: |
+          docker-compose -f docker/docker-compose.yml up -d --build
+        displayName: 'Start Docker Compose'
+        workingDirectory: $(System.DefaultWorkingDirectory)
+
       - task: Maven@4
         inputs:
           mavenPomFile: 'pom.xml'
@@ -51,16 +56,22 @@ jobs:
           condition: always()
           mergeTestResults: true
 
+      - script: |
+          docker-compose -f docker/docker-compose.yml down
+        displayName: 'Stop Docker Compose'
+        workingDirectory: $(System.DefaultWorkingDirectory)
+
       - task: PublishBuildArtifacts@1
         inputs:
-          PathtoPublish: '$(Build.SourcesDirectory)/allure-report'
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/allure-report'
           ArtifactName: 'AllureReport'
           publishLocation: 'Container'
           condition: always()
 
       - task: PublishBuildArtifacts@1
         inputs:
-          PathtoPublish: '$(Build.SourcesDirectory)/target/logger.log'
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/target/logger.log'
           ArtifactName: 'Logs'
           publishLocation: 'Container'
           condition: always()
+
