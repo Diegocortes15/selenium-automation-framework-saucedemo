@@ -21,7 +21,7 @@ pipeline {
         stage('Start container') {
             steps {
                 bat 'docker-compose -f docker/docker-compose.yml up -d'
-                bat 'docker-compose ps'
+                bat 'docker-compose ls'
             }
         }
         stage('E2E Tests') {
