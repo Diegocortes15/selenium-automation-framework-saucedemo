@@ -34,8 +34,14 @@ jobs:
           docker-compose -f docker/docker-compose.yml up -d --build
         working-directory: ${{ github.workspace }}
 
-      - name: Build with Maven
+      - name: E2E Tests
         run: mvn clean verify
+
+      - name: Stop Docker Compose
+        if: always()
+        run: |
+          docker-compose -f docker/docker-compose.yml down
+        working-directory: ${{ github.workspace }}
 
       - name: Generate Allure Report
         if: always()
@@ -68,9 +74,3 @@ jobs:
         with:
           files: |
             **/surefire-reports/junitreports/TEST-*.xml
-
-      - name: Stop Docker Compose
-        if: always()
-        run: |
-          docker-compose -f docker/docker-compose.yml down
-        working-directory: ${{ github.workspace }}

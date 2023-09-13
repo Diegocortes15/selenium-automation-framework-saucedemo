@@ -6,7 +6,7 @@ pipeline {
         allure 'ALLURE_HOME'
     }
     stages {
-        stage("verify tooling") {
+        stage('Verify tooling') {
             steps{
                 bat '''
                     docker version
@@ -16,6 +16,27 @@ pipeline {
                     mvn --version
                     allure --version
                 '''
+            }
+        }
+        stage('Start container') {
+            steps {
+                bat 'docker-compose -f docker/docker-compose.yml up -d'
+                bat 'docker-compose ps'
+            }
+        }
+        stage('E2E Tests') {
+            steps {
+                bat 'mvn clean verify'
+            }
+        }
+        stage('E2E Tests') {
+            steps {
+                bat 'mvn clean verify'
+            }
+        }
+        post {
+            always {
+                bat 'docker-compose -f docker/docker-compose.yml down'
             }
         }
     }
