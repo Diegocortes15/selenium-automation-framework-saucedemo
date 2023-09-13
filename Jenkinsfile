@@ -24,15 +24,33 @@ pipeline {
                 bat 'docker-compose ls'
             }
         }
-        stage('E2E Tests') {
+        stage('E2E tests') {
             steps {
                 bat 'mvn clean verify'
             }
+            post {
+                always {
+                    echo 'Stop container'
+                    bat 'docker-compose -f docker/docker-compose.yml down'
+                }
+            }
         }
-    }
-    post {
-        always {
-            bat 'docker-compose -f docker/docker-compose.yml down'
+        stage('Publish Allure Report') {
+            steps {
+                bat 'allure generate target/allure-results --clean'
+                allure includeProperties: false, jdk: '', results: [[path: '${env.WORKSPACE}/allure-results']]
+
+            }
+        }
+        stage('Publish Junit Report') {
+            steps {
+                archiveArtifacts artifacts: '**/surefire-reports/junitreports/TEST-*.xml', fingerprint: true
+            }
+        }
+        stage('Publish Test Logs') {
+            steps {
+                archiveArtifacts artifacts: '${env.WORKSPACE}/target/logger.log', fingerprint: true
+            }
         }
     }
 }
