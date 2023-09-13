@@ -44,13 +44,21 @@ jobs:
           source ~/.bashrc
           allure generate target/allure-results --clean
 
-      - name: Upload Artifacts - Allure Report - Logger
+      - name: Upload Artifact - Allure Report
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: test-artifacts
+          name: allureReport
           path: |
             allure-report
+          retention-days: 14
+
+      - name: Upload Artifact - Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Logs
+          path: |
             target/logger.log
           retention-days: 14
 
@@ -62,6 +70,7 @@ jobs:
             **/surefire-reports/junitreports/TEST-*.xml
 
       - name: Stop Docker Compose
+        if: always()
         run: |
           docker-compose -f docker/docker-compose.yml down
         working-directory: ${{ github.workspace }}
