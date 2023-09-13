@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         maven 'MAVEN_HOME'
-        java 'JAVA_HOME'
         allure 'ALLURE_HOME'
     }
     stages {
