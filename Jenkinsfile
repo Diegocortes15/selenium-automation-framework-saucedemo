@@ -29,10 +29,10 @@ pipeline {
                 bat 'mvn clean verify'
             }
         }
-        post {
-            always {
-                bat 'docker-compose -f docker/docker-compose.yml down'
-            }
+    }
+    post {
+        always {
+            bat 'docker-compose -f docker/docker-compose.yml down'
         }
     }
 }
