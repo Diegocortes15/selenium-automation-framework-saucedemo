@@ -38,8 +38,7 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 bat 'allure generate target/allure-results --clean'
-                allure includeProperties: false, jdk: '', results: [[path: '${env.WORKSPACE}/allure-results']]
-
+                allure includeProperties: false, jdk: 'JAVA_HOME', results: [[path: 'allure-results']]
             }
         }
         stage('Publish Junit Report') {
@@ -49,7 +48,7 @@ pipeline {
         }
         stage('Publish Test Logs') {
             steps {
-                archiveArtifacts artifacts: '${env.WORKSPACE}/target/logger.log', fingerprint: true
+                archiveArtifacts artifacts: 'target/logger.log', fingerprint: true
             }
         }
     }
