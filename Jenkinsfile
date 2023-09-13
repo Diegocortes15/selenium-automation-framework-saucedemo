@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    tool {
+    tools {
         maven 'MAVEN_HOME'
         java 'JAVA_HOME'
         allure 'ALLURE_HOME'
