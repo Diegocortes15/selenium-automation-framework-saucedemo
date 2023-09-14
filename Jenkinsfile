@@ -52,7 +52,6 @@ pipeline {
             script {
                 echo 'Publish Allure Report'
                 bat "allure generate target/allure-results --clean"
-                archiveArtifacts artifacts: '${env.WORKSPACE}/allure-report', fingerprint: true
                 allure includeProperties: false, jdk: 'JAVA_HOME', results: [[path: 'target/allure-results']]
             }
             script {
