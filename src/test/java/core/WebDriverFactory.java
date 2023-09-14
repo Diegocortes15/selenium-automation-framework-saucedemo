@@ -7,8 +7,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-import static core.FrameworkConfig.HEADLESS;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Objects;
+
+import static core.App.HEADLESS;
 
 public class WebDriverFactory {
     public WebDriver createInstance(String browser) {
@@ -17,13 +22,37 @@ public class WebDriverFactory {
 
         switch (browserType) {
             case CHROME:
-                driver = new ChromeDriver(getChromeOptions());
+                if (Objects.equals(App.PLATFORM, "local")) {
+                    driver = new ChromeDriver(getChromeOptions());
+                } else if (Objects.equals(App.PLATFORM, "remote")) {
+                    try {
+                        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getChromeOptions());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case FIREFOX:
-                driver = new FirefoxDriver(getFirefoxOptions());
+                if (Objects.equals(App.PLATFORM, "local")) {
+                    driver = new FirefoxDriver(getFirefoxOptions());
+                } else if (Objects.equals(App.PLATFORM, "remote")) {
+                    try {
+                        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getFirefoxOptions());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case EDGE:
-                driver = new EdgeDriver(getEdgeOptions());
+                if (Objects.equals(App.PLATFORM, "local")) {
+                    driver = new EdgeDriver(getEdgeOptions());
+                } else if (Objects.equals(App.PLATFORM, "remote")) {
+                    try {
+                        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getEdgeOptions());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
         return driver;

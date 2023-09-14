@@ -1,42 +1,67 @@
 pipeline {
     agent any
 
-    tool {
+    tools {
         maven 'MAVEN_HOME'
+        allure 'ALLURE_HOME'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Verify tooling') {
             steps {
-                checkout scm
+                script {
+                    bat "docker version"
+                    bat "docker info"
+                    bat "docker compose version"
+                    bat "java --version"
+                    bat "mvn --version"
+                    bat "allure --version"
+                }
             }
         }
 
-        stage('Build and Test') {
+        stage('Start container') {
             steps {
-                git branch: 'develop', url: 'https://github.com/Diegocortes15/selenium-automation-framework-saucedemo'
-                bat "mvn clean verify"
+                script {
+                    bat "docker-compose -f docker/docker-compose.yml up -d"
+                    bat "docker-compose ls"
+                }
             }
         }
 
-        stage('reports') {
+        stage('E2E tests') {
             steps {
-            script {
-                    allure([
-                            includeProperties: false,
-                            jdk: '',
-                            properties: [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results: [[path: 'target/allure-results']]
-                    ])
+                script {
+                    bat "mvn clean verify"
+                }
             }
+            post {
+                always {
+                    script {
+                        echo 'Stop container'
+                        bat "docker-compose -f docker/docker-compose.yml down"
+                    }
+                }
             }
         }
     }
 
     post {
         always {
-            deleteDir()
+            echo 'Publish Artifacts'
+            script {
+                echo 'Publish Allure Report'
+                bat "allure generate target/allure-results --clean"
+                allure includeProperties: false, jdk: 'JAVA_HOME', results: [[path: 'target/allure-results']]
+            }
+            script {
+                echo 'Publish Junit Report'
+                junit '**/surefire-reports/junitreports/TEST-*.xml'
+            }
+            script {
+                echo 'Publish Test Logs'
+                archiveArtifacts artifacts: 'target/logger.log', fingerprint: true
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 package pages;
 
-import core.FrameworkConfig;
+import core.App;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    private final String url = FrameworkConfig.BASE_URL;
+    private final String url = App.BASE_URL;
 
     @FindBy(id = "user-name")
     private WebElement inputUser;

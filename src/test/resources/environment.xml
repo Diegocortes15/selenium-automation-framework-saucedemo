@@ -1,15 +1,15 @@
 <environment>
     <parameter>
         <key>Chrome Browser</key>
-        <value>WebDriverManager</value>
+        <value/>
     </parameter>
     <parameter>
         <key>Firefox Browser</key>
-        <value>WebDriverManager</value>
+        <value/>
     </parameter>
     <parameter>
         <key>Microsoft Edge Browser</key>
-        <value>WebDriverManager</value>
+        <value/>
     </parameter>
     <parameter>
         <key>System Under Test (SUT)</key>

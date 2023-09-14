@@ -17,7 +17,7 @@ public class PW_0001 extends BaseTest {
     @Description("Validate the 'standard_user' user navigates to the products page when logged in")
     @Severity(SeverityLevel.BLOCKER)
     public void pw_0003() {
-        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0004.json");
+        ReadJsonData readDataTestCase = new ReadJsonData("src/test/java/data/" + storyParent + "/pw-0003.json");
         JSONObject dataTestCase = readDataTestCase.getJsonObject();
 
         JSONObject dataLoginPage = (JSONObject) dataTestCase.get("loginPage");
