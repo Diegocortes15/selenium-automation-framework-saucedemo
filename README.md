@@ -2,18 +2,23 @@
 
 ## Dependencies used
 
-- Selenium
-- WebDriverManager
+- Selenium 4
 - TestNG
-- Log4J
+- Log4J2
 - Allure
 - JsonSimple
+
+## Pattern design used
+
+- Page Object Model (Thinking in a scalable and dynamic web automation framework)
+- Factory (Applied in WebDriverFactory Class for create difference webdrives intances with the requested browser)
 
 ## Prerequisites to run the project
 
 - [JDK 11](https://www.oracle.com/co/java/technologies/javase/jdk11-archive-downloads.html) (Environment variable)
 - [Maven](https://maven.apache.org/download.cgi) (Environment variable)
 - [Allure](https://docs.qameta.io/allure-report/#_installing_a_commandline) (Environment variable)
+- [Docker](https://docs.docker.com/get-docker/) (Optional if you want to run it remotely)
 - IDE (ex. [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows))
 
 ### How set environment variables
@@ -38,7 +43,6 @@ Installed:
 - Chrome
 - Firefox
 - Microsoft Edge
-
 
 ## Download and open project
 
@@ -66,8 +70,36 @@ git clone https://github.com/Diegocortes15/selenium-automation-framework-saucede
 
 Open the project with the desired IDE, then run the following command.
 
+### Local ⚠
+
+To run the project locally you make sure that in ```App Class``` the ```PLATFORM``` variable must be set as ```local```
+then in folder project you can run the following command.
+
 ```bash
 mvn clean verify
+```
+
+### Remote ⚠
+> **Note**
+> You need [Docker](https://docs.docker.com/get-docker/) installed on your machine to run the following commands!
+
+To run the project remotely you make sure that in ```App Class``` the ```PLATFORM``` variable must be set as ```remote```
+then you must run the docker container with the following command
+
+```bash
+docker-compose -f docker/docker-compose.yml up
+```
+
+Then in another terminal you must use the following container to run our tests
+
+```bash
+mvn clean verify
+```
+
+Once our tests have finished you must run the following command to stop our docker container
+
+```bash
+docker-compose -f docker/docker-compose.yml down
 ```
 
 ## Open allure report
