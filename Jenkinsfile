@@ -56,8 +56,7 @@ pipeline {
             }
             script {
                 echo 'Publish Junit Report'
-                archiveArtifacts artifacts: '**/surefire-reports/testng-results.xml', fingerprint: true
-                junit '**/surefire-reports/testng-results.xml'
+                junit '**/surefire-reports/junitreports/TEST-*.xml'
             }
             script {
                 echo 'Publish Test Logs'
