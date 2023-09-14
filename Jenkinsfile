@@ -66,59 +66,58 @@ pipeline {
             }
         }
 
-        post {
-            {
-                    emailext(
-                        subject: "❌ Jenkins Pipeline Failed: \${JOB_NAME}",
-                        body: """
-                            <html>
-                            <head>
-                                <style>
-                                    body {
-                                        font-family: Arial, sans-serif;
-                                        background-color: #f2f2f2;
-                                        margin: 0;
-                                        padding: 20px;
-                                    }
-                                    .container {
-                                        background-color: #fff;
-                                        padding: 20px;
-                                        border-radius: 5px;
-                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                                    }
-                                    .header {
-                                        background-color: #e74c3c;
-                                        color: #fff;
-                                        padding: 10px;
-                                        text-align: center;
-                                        border-radius: 5px 5px 0 0;
-                                    }
-                                    .content {
-                                        padding: 20px;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <div class="container">
-                                    <div class="header">
-                                        <h1>❌ Jenkins Pipeline Failed</h1>
-                                    </div>
-                                    <div class="content">
-                                        <p>The Jenkins pipeline for <strong>\${JOB_NAME}</strong> has failed.</p>
-                                        <p>Build URL: <a href="\${BUILD_URL}">\${BUILD_URL}</a></p>
-                                        <p>Error Details:</p>
-                                        <pre>\${BUILD_LOG, maxLines=100, escapeHtml=false}</pre>
-                                    </div>
-                                </div>
-                            </body>
-                            </html>
-                            """,
-                        to: "cortesroadiegoalejandro@gmail.com",
-                        cc: "",
-                        bcc: "",
-                        replyTo: "",
-                        mimeType: 'text/html'
-                    )
-                }
+        post    {
+            emailext(
+                subject: "❌ Jenkins Pipeline Failed: \${JOB_NAME}",
+                body: """
+                    <html>
+                    <head>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f2f2f2;
+                                margin: 0;
+                                padding: 20px;
+                            }
+                            .container {
+                                background-color: #fff;
+                                padding: 20px;
+                                border-radius: 5px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                background-color: #e74c3c;
+                                color: #fff;
+                                padding: 10px;
+                                text-align: center;
+                                border-radius: 5px 5px 0 0;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>❌ Jenkins Pipeline Failed</h1>
+                            </div>
+                            <div class="content">
+                                <p>The Jenkins pipeline for <strong>\${JOB_NAME}</strong> has failed.</p>
+                                <p>Build URL: <a href="\${BUILD_URL}">\${BUILD_URL}</a></p>
+                                <p>Error Details:</p>
+                                <pre>\${BUILD_LOG, maxLines=100, escapeHtml=false}</pre>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    """,
+                to: "cortesroadiegoalejandro@gmail.com",
+                cc: "",
+                bcc: "",
+                replyTo: "",
+                mimeType: 'text/html'
+            )
         }
+    }
 }
