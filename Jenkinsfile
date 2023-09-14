@@ -52,12 +52,13 @@ pipeline {
             script {
                 echo 'Publish Allure Report'
                 bat "allure generate target/allure-results --clean"
-                archiveArtifacts artifacts: 'allure-report', fingerprint: true
+                archiveArtifacts artifacts: '${env.WORKSPACE}/allure-report', fingerprint: true
                 allure includeProperties: false, jdk: 'JAVA_HOME', results: [[path: 'target/allure-results']]
             }
             script {
                 echo 'Publish Junit Report'
                 archiveArtifacts artifacts: '**/surefire-reports/testng-results.xml', fingerprint: true
+                junit '**/surefire-reports/testng-results.xml'
             }
             script {
                 echo 'Publish Test Logs'
