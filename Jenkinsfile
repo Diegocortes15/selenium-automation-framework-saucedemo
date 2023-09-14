@@ -54,14 +54,10 @@ pipeline {
                     echo 'Publish Allure Report'
                     sh "allure generate target/allure-results --clean"
                 }
-            }
-            steps {
                 script {
                     echo 'Publish Junit Report'
                     archiveArtifacts artifacts: '**/surefire-reports/junitreports/TEST-*.xml', fingerprint: true
                 }
-            }
-            steps {
                 script {
                     echo 'Publish Test Logs'
                     archiveArtifacts artifacts: 'target/logger.log', fingerprint: true
@@ -118,8 +114,6 @@ pipeline {
                     </html>
                     """,
                 to: "cortesroadiegoalejandro@gmail.com",
-                cc: "",
-                bcc: "",
                 replyTo: "",
                 mimeType: 'text/html'
             )
