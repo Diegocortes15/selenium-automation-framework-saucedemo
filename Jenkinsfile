@@ -5,11 +5,11 @@ pipeline {
         maven 'MAVEN_HOME'
         allure 'ALLURE_HOME'
     }
+
     stages {
         stage('Verify tooling') {
             steps {
                 script {
-                    // Verify tool versions
                     sh "docker version"
                     sh "docker info"
                     sh "docker compose version"
@@ -23,7 +23,6 @@ pipeline {
         stage('Start container') {
             steps {
                 script {
-                    // Start the container
                     sh "docker-compose -f docker/docker-compose.yml up -d"
                     sh "docker-compose ls"
                 }
@@ -33,7 +32,6 @@ pipeline {
         stage('E2E tests') {
             steps {
                 script {
-                    // Run E2E tests
                     sh "mvn clean verify"
                 }
             }
@@ -41,7 +39,6 @@ pipeline {
                 always {
                     script {
                         echo 'Stop container'
-                        // Stop the container
                         sh "docker-compose -f docker/docker-compose.yml down"
                     }
                 }
