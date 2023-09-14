@@ -117,7 +117,7 @@ pipeline {
                     </body>
                     </html>
                     """,
-                to: "recipient@example.com",
+                to: "cortesroadiegoalejandro@gmail.com",
                 cc: "",
                 bcc: "",
                 replyTo: "",
