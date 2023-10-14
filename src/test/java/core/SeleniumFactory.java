@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,13 +21,16 @@ public class SeleniumFactory {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
+    private final Actions actions;
 
     public SeleniumFactory(WebDriver driver) {
         this.driver = driver;
+        this.actions = new Actions(driver);
         this.wait = new WebDriverWait(driver, Duration.ofMillis(App.ELEMENT_TIMEOUT));
     }
 
     public void waitElementUntil(WebElement webElement, WaitType type) {
+        actions.scrollToElement(webElement);
         switch (type) {
             case VISIBLE:
                 wait.until(ExpectedConditions.visibilityOf(webElement));
