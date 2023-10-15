@@ -8,11 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
-import utils.SupportFactory;
 
 public abstract class BaseTest {
     public WebDriver driver;
-    protected final SupportFactory supportFactory = new SupportFactory();
 
     @BeforeMethod
     @Description("Browser start up")

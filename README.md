@@ -87,10 +87,10 @@ To run the project remotely you make sure that in ```App Class``` the ```PLATFOR
 then you must run the docker container with the following command
 
 ```bash
-docker-compose -f docker/docker-compose.yml up
+docker-compose -f docker/docker-compose.yml up -d
 ```
 
-Then in another terminal you must use the following container to run our tests
+Then, you must use the following command to run our tests
 
 ```bash
 mvn clean verify
